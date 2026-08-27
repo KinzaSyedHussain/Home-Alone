@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Alone</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div id="game-container">
+      <div id="start-screen" class="screen active">
+        <img src="Start screen.png" class="bg-img" alt="Start Screen">
+        <button id="play-btn" onclick="showLevelSelect()">
+          <img src="Start button.png" alt="Play button">
+        </button>
+      </div>
+
+      <div id="level-screen" class="screen">
+        <img src="Level background.jpg" class="bg-img" alt="Level Background">
+        <button id="level-1-btn" onclick="startLevel1()">
+          <img src="level.png" alt="Level 1">
+        </button>
+      </div>
+
+      <div id="game-screen" class="screen">
+        <img src="withouopen door.jpeg" class="bg-img" alt="Hallway">
+        <img src="banana dad.png" class="character banana-dad" alt="Bannana dad">
+        <img src="banana mom.png" class="character banana-mom" alt="banana mom">
+        <img src="banana kid.png" class="character banana-kid" alt="banana kid">
+
+        <div id="intro-box">
+          <div class="speech-bubble">
+            <strong>Mom & Dad</strong>"We are going out!" So, don't open the door who ever knock! We have extra key. OOOk!
+          </div>
+          <button class="game-btn" onclick="parentsLeave()"Ok Bye!!!</button></button>
+        </div>
+        </div>
+    </div> 
+
+    
+    <script src="script.js"></script>
+  </body>
+</html>
