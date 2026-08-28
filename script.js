@@ -37,11 +37,18 @@ function parentsLeave() {
 }
 
 function strangerArrives() {
+  const hallBg = document.getElementById('main-bg')
+  const kid = document.getElementById('banana-kid');
+  const appy = document.getElementById('appy');
   const introbox = document.getElementById('intro-box');
+
+  if (hallBg) hallBg.src = "stranger stand.jpg";
+  if (kid) kid.style.display = 'block';
+  if (appy) appy.classList.remove()
 
   if (introbox) {
     introbox.innerHTML = `
-      <p id="dialogue-text"><strong>Stranger:</strong> *Knock Knock* "Hey kid! I'm Appy, open the door!"</p>
+      <p id="dialogue-text"><strong>Stranger:</strong> *Knock Knock* "Hey kid! I'm Appy Doctor, open the door!"</p>
       <div id="choices-container" style="display:flex; justify-content:center; gap:15px; margin-top:10px;">
         <button class="game-btn danger" onclick="chooseDoor(true)">YES (Open Door)</button>
         <button class="game-btn safe" onclick="chooseDoor(false)">NO (Keep Locked)</button>
@@ -57,4 +64,31 @@ function strangerArrives() {
     document.getElementById('game-screen').appendChild(arrow);
   }
 }
+
+function openKitchen() {
+  document.getElementById('game-screen').classList.remove('active');
+  document.getElementById('kitchen-screen').classList.add('active');
+}
+
+function backToHall() {
+  document.getElementById('kitchen-screen').classList.remove('active');
+  document.getElementById('game-screen').classList.add('active');
+}
+
+function chooseDoor(openDoor) {
+  const hallBg = document.getElementById('main-bg');
+  const kid = document.getElementById('banana-kid');
+  const appy = document.getElementById('appy');
+  const uiBox = document.getElementById('intro-box');
   
+  if (appy) appy.classList.add('hidden');
+
+  if (openDoor) {
+    if (hallBg) hallBg.src = "open door.jpeg";
+    if (uiBox) uiBox.innerHTML = "<p style='color:#ff4d4d; font-size: 1.2rem; font-weight: bold;'>GAME OVER! You opened the door to Appy!</p>";
+  } else {
+    if (hallBg) hallBg.src = "withouopen door.jpeg";
+    if (kid) kid.classList.remove('hidden'); 
+    if (uiBox) uiBox.innerHTML = "<p style='color:#2ecc71; font-size: 1.2rem; font-weight: bold;'>YOU SURVIVED! You kept the door locked!</p>";
+  }
+}

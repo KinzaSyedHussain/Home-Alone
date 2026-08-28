@@ -23,19 +23,30 @@
       </div>
 
       <div id="game-screen" class="screen">
-        <img src="withouopen door.jpeg" class="bg-img" alt="Hallway">
-        <img src="banana dad.png" class="character banana-dad" alt="Bannana dad">
-        <img src="banana mom.png" class="character banana-mom" alt="banana mom">
-        <img src="banana kid.png" class="character banana-kid" alt="banana kid">
+        <img id="main-bg" src="withouopen door.jpeg" class="bg-img" alt="Hallway">
+        <img id="banana-dad" src="banana dad.png" class="character banana-dad" alt="Bannana dad">
+        <img id="banana-mom" src banana mom.png" class="character banana-mom" alt="banana mom">
+        <img id="banana-kid" src="banana kid.png" class="character banana-kid" alt="banana kid">
+        <img id="appy" src="Appy.png" class="character appy hidden " alt="Doctor"
 
         <div id="intro-box">
           <div class="speech-bubble">
-            <strong>Mom & Dad</strong>"We are going out!" So, don't open the door who ever knock! We have extra key. OOOk!
+            <strong>Mom & Dad: </strong>"We are going out!" So, don't open the door who ever knock! We have extra key. OOOk!
           </div>
           <button id="dialogue-btn" class="game-btn" onclick="parentsLeave()">Ok Bye!!!</button>
         </div>
+      </div>
+
+      <div id="kitchen-screen" class="screen">
+        <img src="Kitchen.jpg" class="bg-img" alt="kitchen">
+        <img id="fridge-clue" src="clue.png" class="fridge-note" alt="clue" onclick="showClueText()">
+        <div id="clue-popup" class="kitchen-ui hidden">
+          <p class="clue">🔍 <strong> Clue </strong> "Doctor oppointment: Next week" </p>
+          <button class="game-btn" onclick="closeClueText()">Close</button>
         </div>
 
+        <button class="game-btn back" onclick="backToHall()">&lt; <-- Back to Hall</button>
+      </div>
 
     
     <script src="script.js"></script>

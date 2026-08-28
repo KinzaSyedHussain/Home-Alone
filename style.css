@@ -20,7 +20,7 @@ html, body {
 
 .screen {
   display: none;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -35,6 +35,10 @@ html, body {
   width: 100%;
   height: 99%;
   object-fit: contain;
+}
+
+.hidden {
+  display:  none;
 }
 
 #play-btn {
@@ -77,10 +81,6 @@ html, body {
 
 .character {
   position: absolute;
-  bottom: 120px;
-  height: 220px;
-  width: auto;
-  z-index: 2;
 }
 
 .banana-kid {
@@ -90,15 +90,22 @@ html, body {
 }
 
 .banana-dad {
-  right: 10%;
+  right: 12%;
   height: 70%;
   top: 23%;
 }
 
 .banana-mom {
-  right: 5%;
+  right: 8%;
   height: 60%;
   top: 40%;
+}
+
+.appy {
+  left: 45%;
+  bottom: 120px;
+  height: 220px;
+  z-index: 3;
 }
 
 #intro-box {
@@ -128,9 +135,50 @@ html, body {
   font-size: 1rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
-.game-btn:hover {
-  transform: scale(1.05);
+.game-btn.danger {
+  background-color: #e74c3c;
+}
+.game-btn.safe {
+  background-color: #2ecc71;
+}
+
+.start-btn {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.start-btn img {
+  height: 100px;
+}
+
+#kitchen-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.kitchen-ui {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 10;
+}
+
+.clue-text {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
 }
