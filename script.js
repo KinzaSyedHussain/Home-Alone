@@ -16,22 +16,21 @@ function parentsLeave() {
   const introbox = document.getElementById('intro-box');
   const btn = document.getElementById('dialogue-btn');
 
-  hallbg.src = "open door.jpeg";
+  if (hallbg) hallbg.src = "open door.jpeg";
   if (dad) dad.style.display = 'none';
   if (mom) mom.style.display = 'none';
   if (introbox) introbox.style.display = 'none';
 
   setTimeout(() => {
-    hallbg.src = "withoutopen door.jpeg";
-
+    if (hallbg) hallbg.src = "withoutopen door.jpeg";
     if (introbox) introbox.style.display = 'block';
     const speechBubble = document.querySelector('.speech-bubble');
     if (speechBubble) {
-      speech-bubble.innerHTML = "<strong>Banana Kid:</strong> Bye Mom and Dad! Now I'm home alone! Time to check the house...";
+      speechBubble.innerHTML = "<strong>Banana Kid:</strong> Bye Mom and Dad! Now I'm home alone! Time to check the house...";
     }
 
     if (btn) {
-      btn.innerText = "Wait... Who is at the door?";
+      btn.innerText = "Look through peephole";
       btn.onclick = strangerArrives;
     }
   }, 1500);
