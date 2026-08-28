@@ -85,14 +85,20 @@ html, body {
 
 .banana-kid {
   left: 20%;
+  height: 50%;
+  top: 45%;
 }
 
 .banana-dad {
-  right: 25%;
+  right: 10%;
+  height: 70%;
+  top: 23%;
 }
 
 .banana-mom {
-  right: 12%;
+  right: 5%;
+  height: 60%;
+  top: 40%;
 }
 
 #intro-box {

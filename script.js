@@ -9,3 +9,14 @@ function startLevel1() {
 }
 
 
+function parentsLeave() {
+  document.querySelector('.banana-dad').styledisplay = 'none';
+  document.querySelector('.banana-mom').styledisplay = 'none';
+  document.querySelector('.speech-bubble').innerHTML = "<strong>Banana Kid:</strong> Now I'm home alone! Time to check the house...";
+
+  const btn = document.querySelector('#intro-ui-box .game-btn');
+  btn.innerText = "Look Around";
+  btn.onclick = function() {
+    alert("Next scene ready!");
+  };
+}
