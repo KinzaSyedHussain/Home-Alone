@@ -62,7 +62,7 @@ html, body {
 #level-1-btn {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 18%;
   transform: translate(-50%, -50%);
   background: none;
   border: none;
@@ -77,6 +77,10 @@ html, body {
 
 #level-1-btn:hover {
   transform: translate(-50%, -50%) scale(1.1);
+}
+
+#level-screen {
+  position: relative;
 }
 
 .character {
@@ -145,6 +149,36 @@ html, body {
   background-color: #2ecc71;
 }
 
+.game-over-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.85);
+  padding: 30px 40px;
+  border-radius: 20px;
+  border: 3px solid #ff9900;
+  text-align: center;
+  z-index: 100;
+}
+
+.game-over-box p {
+  margin: 0 0 15px 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.replay-icon {
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.replay-icon:hover {
+  transform: scale(1.15) rotate(15deg);
+}
+
 .start-btn {
   position: absolute;
   bottom: 40px;
@@ -157,6 +191,13 @@ html, body {
 
 .start-btn img {
   height: 100px;
+}
+
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
 }
 
 #kitchen-arrow {
@@ -179,6 +220,35 @@ html, body {
   z-index: 10;
 }
 
+.fridge-note {
+  position: absolute;
+  right: 30%;
+  top: 45%;
+  width: 55px;
+  height: auto;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s;
+}
+
+.fridge-note.hover {
+  transform: scale(1.15);
+}
+
+#clue-popup {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  padding: 15px 25px;
+  border-radius: 10px;
+  border: 2px solid #000000;
+  text-align: center;
+  z-index: 20;
+}
+
 .clue-text {
   font-size: 1.2rem;
   margin-bottom: 15px;
@@ -194,4 +264,21 @@ html, body {
 
 .wiggle {
   animation: wiggle 0.4s ease-in-out infinite;
+}
+
+.coming-soon {
+  position: absolute;
+  top: 380px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #f1c40f;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 12px 25px;
+  border-radius: 30px;
+  border: 3px solid #f1c40f;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
 }

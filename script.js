@@ -6,6 +6,14 @@ function playSound(audioId) {
   }
 }
 
+function stopSound(audioId) {
+  const sound = document.getElementById(audioId);
+  if (sound) {
+    sound.pause();
+    sound.currentTime = 0;
+  }
+}
+
 function showLevelSelect() {
   document.getElementById('start-screen').classList.remove('active');
   document.getElementById('level-screen').classList.add('active');
@@ -20,6 +28,36 @@ function showLevelSelect() {
 function startLevel1() {
   document.getElementById('level-screen').classList.remove('active');
   document.getElementById('game-screen').classList.add('active');
+
+  // Reset elements when entering Level 1
+  const hallbg = document.getElementById('main-bg');
+  const dad = document.getElementById('banana-dad');
+  const mom = document.getElementById('banana-mom');
+  const kid = document.getElementById('banana-kid');
+  const introbox = document.getElementById('intro-box');
+  const appy = document.getElementById('appy');
+
+  const kitchenArrow = document.getElementById('kitchen-arrow');
+  if (kitchenArrow) kitchenArrow.remove();
+
+  const gameOverBox = document.querySelector('.game-over-box');
+  if (gameOverBox) gameOverBox.remove();
+
+  if (hallbg) hallbg.src = "withouopen door.jpeg";
+  if (dad) dad.style.display = 'block';
+  if (mom) mom.style.display = 'block';
+  if (kid) kid.style.display = 'block';
+  if (appy) appy.classList.add('hidden');
+
+  if (introbox) {
+    introbox.style.display = 'block';
+    introbox.innerHTML = `
+      <div class="speech-bubble">
+        <strong>Banana Dad:</strong> We are going out!" So, don't open the door who ever knock! We have extra key. OOOk!
+      </div>
+      <button id="dialogue-btn" class="game-btn" onclick="parentsLeave()">Okay Dad!</button>
+    `;
+  }
 }
 
 function parentsLeave() {
@@ -41,19 +79,18 @@ function parentsLeave() {
     
     const speechBubble = document.querySelector('.speech-bubble');
     if (speechBubble) {
-      speechBubble.innerHTML = "<strong>Banana Kid:</strong> Bye Mom and Dad! Now I'm home alone! Time to check the house...";
+      speechBubble.innerHTML = "<strong>Banana Kid:</strong> WooHoo! Let's do fun!";
     }
 
     if (btn) btn.style.display = 'none';
     if (kid) kid.classList.add('wiggle');
-    playSound('chicken-banana')
+    playSound('chicken-banana');
 
-  setTimeout(() => {
-    const chickenAudio = document.getElementById('chicken-banana');
-    if (chickenAudio) chickenAudio.pause();
-    if (kid) kid.classList.remove('wiggle');
+    setTimeout(() => {
+      stopSound('chicken-banana');
+      if (kid) kid.classList.remove('wiggle');
 
-    playSound('knock');
+      playSound('knock');
 
       if (speechBubble) {
         speechBubble.innerHTML = "<strong>Banana Kid:</strong> *Knock Knock!* Huh? Who is at the door?";
@@ -75,30 +112,76 @@ function strangerArrives() {
   const introbox = document.getElementById('intro-box');
 
   if (hallBg) hallBg.src = "stranger stand.jpg";
-  if (kid) kid.style.display = 'block';
+  if (kid) kid.style.display = 'none';
   if (appy) appy.classList.remove('hidden');
 
   if (introbox) {
-    introbox.innerHTML = `
-      <p id="dialogue-text" style="margin-bottom:10px;"><strong>Stranger:</strong> *Knock Knock* "Hey kid! I'm Appy Doctor, open the door!"</p>
-      <div id="choices-container" style="display:flex; justify-content:center; gap:15px;">
-        <button class="game-btn danger" onclick="chooseDoor(true)">YES (Open Door)</button>
-        <button class="game-btn safe" onclick="chooseDoor(false)">NO (Keep Locked)</button>
-      </div>
+    introbox.innerHTML = `<p id="dialogue-text"><strong>Peephole View:</strong> Looking through the peephole...</p>`;
+  }
+
+  setTimeout(() => {
+    if (hallBg) hallBg.src = "withouopen door.jpeg";
+    if (kid) kid.style.display = 'block';        
+    if (appy) appy.classList.add('hidden');
+
+    if (introbox) {
+      introbox.innerHTML = `
+        <p id="dialogue-text" style="margin-bottom:10px;"><strong>Stranger:</strong> Knock Knock "Hey kid! I'm Appy Doctor, open the door! today is your injection day!"</p>
+        <div id="choices-container" style="display:flex; justify-content:center; gap:15px;">
+          <button class="game-btn danger" onclick="chooseDoor(true)">YES (Open Door)</button>
+          <button class="game-btn safe" onclick="chooseDoor(false)">NO (Keep Locked)</button>
+        </div>
+      `;
+    }
+
+    if (!document.getElementById('kitchen-arrow')) {
+      const arrow = document.createElement('button');
+      arrow.id = 'kitchen-arrow';
+      arrow.className = 'game-btn';
+      arrow.style.position = 'absolute';
+      arrow.style.top = '20px';
+      arrow.style.left = '20px';
+      arrow.innerText = '<--- Go to kitchen';
+      arrow.onclick = openKitchen;
+      document.getElementById('game-screen').appendChild(arrow);
+    }
+  }, 3000); 
+}
+
+function chooseDoor(openDoor) {
+  const hallBg = document.getElementById('main-bg');
+  const kid = document.getElementById('banana-kid');
+  const appy = document.getElementById('appy');
+  const introbox = document.getElementById('intro-box');
+
+  const kitchenArrow = document.getElementById('kitchen-arrow');
+  if (kitchenArrow) kitchenArrow.remove();
+
+  if (introbox) introbox.style.display = 'none';
+  
+  const resultBox = document.createElement('div');
+  resultBox.className = 'game-over-box';
+
+  if (openDoor) {
+    if (hallBg) hallBg.src = "open door.jpeg";
+    if (appy) appy.classList.add('hidden');
+
+    resultBox.innerHTML = `
+      <p style="color:#ff4d4d;">GAME OVER! You opened the door to Appy! 🚨</p>
+      <img src="replay.png" class="replay-icon" alt="Replay" onclick="restartGame()">
+    `;
+  } else {
+    if (hallBg) hallBg.src = "withouopen door.jpeg";
+    if (appy) appy.classList.add('hidden');
+    if (kid) kid.style.display = 'block';
+
+    resultBox.innerHTML = `
+      <p style="color:#2ecc71;">YOU SURVIVED! You kept the door locked! 🎉</p>
+      <img src="replay.png" class="replay-icon" alt="Replay" onclick="restartGame()">
     `;
   }
 
-  if (!document.getElementById('kitchen-arrow')) {
-    const arrow = document.createElement('button');
-    arrow.id = 'kitchen-arrow';
-    arrow.className = 'game-btn';
-    arrow.style.position = 'absolute';
-    arrow.style.top = '20px';
-    arrow.style.left = '20px';
-    arrow.innerText = '<--- Go to kitchen (check clue)';
-    arrow.onclick = openKitchen;
-    document.getElementById('game-screen').appendChild(arrow);
-  }
+  document.getElementById('game-screen').appendChild(resultBox);
 }
 
 function openKitchen() {
@@ -121,20 +204,10 @@ function closeClueText() {
   if (popup) popup.classList.add('hidden');
 }
 
-function chooseDoor(openDoor) {
-  const hallBg = document.getElementById('main-bg');
-  const kid = document.getElementById('banana-kid');
-  const appy = document.getElementById('appy');
-  const uiBox = document.getElementById('intro-box');
-  
-  if (appy) appy.classList.add('hidden');
+function restartGame() {
+  const gameOverBox = document.querySelector('.game-over-box');
+  if (gameOverBox) gameOverBox.remove();
 
-  if (openDoor) {
-    if (hallBg) hallBg.src = "open door.jpeg";
-    if (uiBox) uiBox.innerHTML = "<p style='color:#ff4d4d; font-size: 1.2rem; font-weight: bold;'>GAME OVER! You opened the door to Appy!</p>";
-  } else {
-    if (hallBg) hallBg.src = "withouopen door.jpeg";
-    if (kid) kid.style.display = 'block';
-    if (uiBox) uiBox.innerHTML = "<p style='color:#2ecc71; font-size: 1.2rem; font-weight: bold;'>YOU SURVIVED! You kept the door locked!</p>";
-  }
+  document.getElementById('game-screen').classList.remove('active');
+  document.getElementById('level-screen').classList.add('active');
 }
