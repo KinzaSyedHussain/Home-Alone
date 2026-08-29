@@ -1,6 +1,20 @@
+function playSound(audioId) {
+  const sound = document.getElementById(audioId);
+  if (sound) {
+    sound.currentTime = 0;
+    sound.play().catch(err => console.log(`Audio error (${audioId}):`, err));   
+  }
+}
+
 function showLevelSelect() {
   document.getElementById('start-screen').classList.remove('active');
   document.getElementById('level-screen').classList.add('active');
+
+  const bgMusic = document.getElementById('bg-music');
+  if (bgMusic) {
+    bgMusic.volume = 0.5; 
+    bgMusic.play().catch(err => console.log("BG Music play blocked:", err));
+  }
 }
 
 function startLevel1() {
@@ -12,6 +26,7 @@ function parentsLeave() {
   const hallbg = document.getElementById('main-bg');
   const dad = document.getElementById('banana-dad');
   const mom = document.getElementById('banana-mom');
+  const kid = document.getElementById('banana-kid');
   const introbox = document.getElementById('intro-box');
   const btn = document.getElementById('dialogue-btn');
 
@@ -29,10 +44,27 @@ function parentsLeave() {
       speechBubble.innerHTML = "<strong>Banana Kid:</strong> Bye Mom and Dad! Now I'm home alone! Time to check the house...";
     }
 
-    if (btn) {
-      btn.innerText = "Look through peephole";
-      btn.onclick = strangerArrives;
-    }
+    if (btn) btn.style.display = 'none';
+    if (kid) kid.classList.add('wiggle');
+    playSound('chicken-banana')
+
+  setTimeout(() => {
+    const chickenAudio = document.getElementById('chicken-banana');
+    if (chickenAudio) chickenAudio.pause();
+    if (kid) kid.classList.remove('wiggle');
+
+    playSound('knock');
+
+      if (speechBubble) {
+        speechBubble.innerHTML = "<strong>Banana Kid:</strong> *Knock Knock!* Huh? Who is at the door?";
+      }
+
+      if (btn) {
+        btn.innerText = "Look through peephole";
+        btn.style.display = 'inline-block';
+        btn.onclick = strangerArrives;
+      }
+    }, 5000);
   }, 1500);
 }
 
@@ -42,7 +74,7 @@ function strangerArrives() {
   const appy = document.getElementById('appy');
   const introbox = document.getElementById('intro-box');
 
-  if (hallBg) hallBg.src = "stranger stand.png";
+  if (hallBg) hallBg.src = "stranger stand.jpg";
   if (kid) kid.style.display = 'block';
   if (appy) appy.classList.remove('hidden');
 

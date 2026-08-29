@@ -102,10 +102,11 @@ html, body {
 }
 
 .appy {
-  left: 45%;
+  left: 35%;
   bottom: 120px;
-  height: 220px;
+  height: 700px;
   z-index: 3;
+  top: 12%;
 }
 
 #intro-box {
@@ -181,4 +182,16 @@ html, body {
 .clue-text {
   font-size: 1.2rem;
   margin-bottom: 15px;
+}
+
+@keyframes wiggle {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-12deg) scale(1.05); }
+  50% { transform: rotate(12deg) scale(1.05); }
+  75% { transform: rotate(-12deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+.wiggle {
+  animation: wiggle 0.4s ease-in-out infinite;
 }
