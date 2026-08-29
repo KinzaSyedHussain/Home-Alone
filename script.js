@@ -139,8 +139,8 @@ function strangerArrives() {
       arrow.id = 'kitchen-arrow';
       arrow.className = 'game-btn';
       arrow.style.position = 'absolute';
-      arrow.style.top = '20px';
-      arrow.style.left = '20px';
+      arrow.style.top = '250px';
+      arrow.style.left = '350px';
       arrow.innerText = '<--- Go to kitchen';
       arrow.onclick = openKitchen;
       document.getElementById('game-screen').appendChild(arrow);

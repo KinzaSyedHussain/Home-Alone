@@ -195,14 +195,14 @@ html, body {
 
 .back-btn {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 20%;
+  left: 70%;
   z-index: 10;
 }
 
 #kitchen-arrow {
   position: absolute;
-  top: 20px;
+  top: 50px;
   left: 20px;
   z-index: 10;
 }
