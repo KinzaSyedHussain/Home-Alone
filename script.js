@@ -1,3 +1,6 @@
+const winSound = new Audio('Win.mp3');
+const loseSound =  new Audio('lose.mp3')
+
 function playSound(audioId) {
   const sound = document.getElementById(audioId);
   if (sound) {
@@ -14,9 +17,18 @@ function stopSound(audioId) {
   }
 }
 
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  const targetScreen = document.getElementById(screenId);
+  if (targetScreen) {
+    targetScreen.classList.add('active');
+  }
+}
+
 function showLevelSelect() {
-  document.getElementById('start-screen').classList.remove('active');
-  document.getElementById('level-screen').classList.add('active');
+  showScreen('level-screen');
 
   const bgMusic = document.getElementById('bg-music');
   if (bgMusic) {
@@ -26,10 +38,8 @@ function showLevelSelect() {
 }
 
 function startLevel1() {
-  document.getElementById('level-screen').classList.remove('active');
-  document.getElementById('game-screen').classList.add('active');
+  showScreen('game-screen');
 
-  // Reset elements when entering Level 1
   const hallbg = document.getElementById('main-bg');
   const dad = document.getElementById('banana-dad');
   const mom = document.getElementById('banana-mom');
@@ -158,40 +168,57 @@ function chooseDoor(openDoor) {
   if (kitchenArrow) kitchenArrow.remove();
 
   if (introbox) introbox.style.display = 'none';
-  
-  const resultBox = document.createElement('div');
-  resultBox.className = 'game-over-box';
 
   if (openDoor) {
     if (hallBg) hallBg.src = "open door.jpeg";
     if (appy) appy.classList.add('hidden');
-
-    resultBox.innerHTML = `
-      <p style="color:#ff4d4d;">GAME OVER! You opened the door to Appy! 🚨</p>
-      <img src="replay.png" class="replay-icon" alt="Replay" onclick="restartGame()">
-    `;
+    triggerOutcome(false, "GAME OVER! You opened the door to Appy! 🚨");
   } else {
     if (hallBg) hallBg.src = "withouopen door.jpeg";
     if (appy) appy.classList.add('hidden');
     if (kid) kid.style.display = 'block';
-
-    resultBox.innerHTML = `
-      <p style="color:#2ecc71;">YOU SURVIVED! You kept the door locked! 🎉</p>
-      <img src="replay.png" class="replay-icon" alt="Replay" onclick="restartGame()">
-    `;
+    triggerOutcome(true, "YOU SURVIVED! You kept the door locked! 🎉");
   }
-
-  document.getElementById('game-screen').appendChild(resultBox);
 }
 
+function triggerOutcome(isWin, messageText) {
+  const resultBox = document.createElement('div');
+  resultBox.className = 'game-over-box';
+
+  const textColor = isWin ? '#2ecc71' : '#ff4d4d';
+  resultBox.innerHTML = `
+    <p style="color: ${textColor}; font-weight: bold;">${messageText}</p>
+    <img src="replay.png" class="replay-icon" alt="Replay" onclick="restartGame()" style="cursor: pointer;">
+  `;
+
+    if (isWin) {
+      winSound.currentTime = 0;
+      winSound.play().catch(err => console.log("Win audio error:", err));
+    } else {
+      loseSound.currentTime = 0;
+      loseSound.play().catch(err => console.log("Lose audio error:", err));
+    }
+  
+    const gameScreen = document.getElementById('game-screen');  
+    if (gameScreen) { 
+      gameScreen.appendChild(resultBox);
+    }
+ }
+
+ function restartGame() {
+  const gameOverBox = document.querySelector('.game-over-box');
+  if (gameOverBox) gameOverBox.remove();
+
+  showScreen('level-screen');
+ }
+
+
 function openKitchen() {
-  document.getElementById('game-screen').classList.remove('active');
-  document.getElementById('kitchen-screen').classList.add('active');
+ showScreen('kitchen-screen');
 }
 
 function backToHall() {
-  document.getElementById('kitchen-screen').classList.remove('active');
-  document.getElementById('game-screen').classList.add('active');
+  showScreen('game-screen');
 }
 
 function showClueText() {
@@ -204,10 +231,8 @@ function closeClueText() {
   if (popup) popup.classList.add('hidden');
 }
 
-function restartGame() {
-  const gameOverBox = document.querySelector('.game-over-box');
-  if (gameOverBox) gameOverBox.remove();
 
-  document.getElementById('game-screen').classList.remove('active');
-  document.getElementById('level-screen').classList.add('active');
-}
+
+
+  
+
