@@ -20,6 +20,9 @@
         <button id="level-1-btn" onclick="startLevel1()">
           <img src="level.png" alt="Level 1">
         </button>
+        <button id="level-2" onclick="startLevel2()">
+          <img src="level2.png" alt="level-2">
+        </button>
         <div class="coming-soon">
           More levels Coming Soon!
         </div>
@@ -27,10 +30,11 @@
 
       <div id="game-screen" class="screen">
         <img id="main-bg" src="withouopen door.jpeg" class="bg-img" alt="Hallway">
-        <img id="banana-dad" src="banana dad.png" class="character banana-dad" alt="Bannana dad">
-        <img id="banana-mom" src ="banana mom.png" class="character banana-mom" alt="banana mom">
-        <img id="banana-kid" src="banana kid.png" class="character banana-kid" alt="banana kid">
-        <img id="appy" src="Appy.png" class="character appy hidden " alt="Doctor">
+        <img id="banana-dad" src="banana dad.png" class="character banana-dad" alt="Banana dad">
+        <img id="banana-mom" src="banana mom.png" class="character banana-mom" alt="Banana mom">
+        <img id="banana-kid" src="banana kid.png" class="character banana-kid" alt="Banana kid">
+        <img id="appy" src="Appy.png" class="character appy hidden" alt="Doctor">
+        <img id="banana-joe" src="Banana_Joe.png" class="character hidden" alt="Banana Joe">
 
         <div id="intro-box">
           <div class="speech-bubble">
@@ -48,13 +52,36 @@
           <button class="game-btn" onclick="closeClueText()">Close</button>
         </div>
 
-        <button class="game-btn back-btn" onclick="backToHall()">  Back to Hall → </button>
+        <button class="game-btn back-btn" onclick="backToHall()"> Back to Hall → </button>
       </div>
 
+      <div id="upstairs-screen" class="screen">
+        <img src="upstairs-hall.jpeg" class="bg-img" alt="Upstairs Hall">
+        <button class="game-btn" onclick="openGumballRoom()" style="position: absolute; top: 200px; left: 800px;">
+          Go to Gumball's Room
+        </button>
+        <button class="game-btn" onclick="backToHallFromUpstairs()" style="position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);">
+          Go Downstairs to Hall 👇
+        </button>
+      </div>
+
+      <div id="gumball-screen" class="screen">
+        <img src="gumballroom.jpg" class="bg-img">
+        <img id="frame" src="frame.png" onclick="showFrameClue()">
+
+        <div id="frame-clue" class="kitchen-ui hidden">
+          <p class="clue">Clue <strong>Family Clue:</strong>"Look! Banana Joe is in the family photo! He really is my cousin!"</p>
+          <button class="game-btn" onclick="closeFrameClue()">Close</button>
+        </div>
+        <button class="game-btn back-btn" onclick="backToUpstairs()"> Back to Upstairs Hall</button>
+      </div>
+
+      
 
       <audio id="bg-music" src="Background sound.mp3" loop></audio>
       <audio id="chicken-banana" src="CHICKEN BANANA.mp3"></audio>
       <audio id="knock" src="knock.mp3"></audio>
+      <audio id="tacos" src="Raining Tacos.mp3"></audio>
 
     <script src="script.js"></script>
   </body>

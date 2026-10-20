@@ -179,6 +179,17 @@ html, body {
   transform: scale(1.15) rotate(15deg);
 }
 
+.next {
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.next:hover {
+  transform: scale(1.15) rotate(15deg);
+}
+
 .start-btn {
   position: absolute;
   bottom: 40px;
@@ -224,7 +235,7 @@ html, body {
   position: absolute;
   right: 30%;
   top: 45%;
-  width: 55px;
+  width: 50px;
   height: auto;
   cursor: pointer;
   z-index: 10;
@@ -234,6 +245,7 @@ html, body {
 .fridge-note.hover {
   transform: scale(1.15);
 }
+
 
 #clue-popup {
   position: absolute;
@@ -247,6 +259,7 @@ html, body {
   border: 2px solid #000000;
   text-align: center;
   z-index: 20;
+  wit
 }
 
 .clue-text {
@@ -281,4 +294,59 @@ html, body {
   text-align: center;
   z-index: 10;
   pointer-events: none;
+}
+
+#level-2 {
+  position: absolute;
+  top: 70%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#level-2 img {
+  height: 100px;
+  width: auto;
+}
+
+#level2-screen {
+  background-color: #1a1a2e;
+}
+
+#level-1-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+#banana-joe {
+  left: 35%;
+  bottom: 120px;
+  height: 700px;
+  z-index: 3;
+  top: 12%;
+}
+
+.upstairs-screen {
+  left: 570%;
+}
+
+#frame {
+  position: absolute;
+  top: 300px;
+  left: 650px;
+  width: 200px;
+  cursor: pointer;
+  transition: transform 0.4 ease-in-out;
+  z-index: 10;
+  transform-origin: center center;
+}
+
+#frame.zoom {
+  transform: translate(-50%, -50%) scale(5);
+  top: 40%;
+  left: 50%;
+  z-index: 100;
+
 }
