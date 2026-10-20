@@ -8,3 +8,6 @@ When Banana Kid's parents leave him home alone, a suspicious stranger will arriv
 HTML
 JavaScript
 CSS
+
+# Want to play?
+Click here: https://kinzasyedhussain.github.io/Home-Alone/
