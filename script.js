@@ -472,4 +472,207 @@ function closeFrameClue() {
     frame.classList.remove('zoom');
   }
 }
+
+
+function startLevel3() {
+  currentLevel = 3;
+  showScreen('game-screen');
+
+  const hallbg = document.getElementById('main-bg');
+  const dad = document.getElementById('banana-dad');
+  const mom = document.getElementById('banana-mom');
+  const kid = document.getElementById('banana-kid');
+  const introbox = document.getElementById('intro-box');
+  const teacher = document.getElementById('teacher');
+
+  const extraBtn = document.getElementById('extra-nav-btn');
+  if (extraBtn) extraBtn.remove();
+  const extraBtn2 = document.getElementById('extra-nav-btn-2');
+  if (extraBtn2) extraBtn2.remove();
+
+  const gameOverBox = document.querySelector('.game-over-box');
+  if (gameOverBox) gameOverBox.remove();
+
+  const kitchenArrow = document.getElementById('kitchen-arrow');
+  if (kitchenArrow) kitchenArrow.remove();
+  
+  if (hallbg) hallbg.src = "withouopen door.jpeg";
+  if (dad) dad.style.display = 'block';
+  if (mom) mom.style.display = 'block';
+  if (kid) kid.style.display = 'block';
+  if (teacher) teacher.classList.add('teacher');
+
+  if (introbox) {
+    introbox.style.display = 'block';
+    introbox.innerHTML = `
+      <div class="speech-bubble">
+        <strong>Banana Dad:</strong> We are going into our room. So, don't disturb! Or you will be beaten with a shoe!
+      </div>
+      <button id="dialogue-btn" class="game-btn" onclick="parentsLeave3()">Okay Dad!</button>
+    `;
+  }
+}
+
+
+function parentsLeave3() {
+  const hallbg = document.getElementById('main-bg');
+  const dad = document.getElementById('banana-dad');
+  const mom = document.getElementById('banana-mom');
+  const kid = document.getElementById('banana-kid');
+  const introbox = document.getElementById('intro-box');
+  const btn = document.getElementById('dialogue-btn');
+
+  if (dad) dad.style.display = 'none';
+  if (mom) mom.style.display = 'none';
+  if (introbox) introbox.style.display = 'none';
+
+  setTimeout(() => {
+    if (hallbg) hallbg.src = "withouopen door.jpeg";
+    if (introbox) introbox.style.display = 'block';
+    
+    const speechBubble = document.querySelector('.speech-bubble');
+    if (speechBubble) {
+      speechBubble.innerHTML = "<strong>Banana Kid:</strong> Parents are upstairs! Let's party!";
+    }
+
+    if (btn) btn.style.display = 'none';
+    if (kid) kid.classList.add('wiggle');
+    playSound('tacos');
+
+    setTimeout(() => {
+      stopSound('tacos');
+      if (kid) kid.classList.remove('wiggle');
+
+      playSound('knock');
+
+      if (speechBubble) {
+        speechBubble.innerHTML = "<strong>Banana Kid:</strong> *Knock Knock!* Huh? Who is at the door?";
+      }
+
+      if (btn) {
+        btn.innerText = "Look through peephole";
+        btn.style.display = 'inline-block';
+        btn.onclick = strangerArrives3;
+      }
+    }, 5000);
+  }, 1500);
+}
+
+function strangerArrives3() {
+  const hallBg = document.getElementById('main-bg');
+  const kid = document.getElementById('banana-kid');
+  const teacher= document.getElementById('teacher');
+  const introbox = document.getElementById('intro-box');
+
+  if (hallBg) hallBg.src = "stranger stand.jpg";
+  if (kid) kid.style.display = 'none';
+  if (teacher) { 
+    teacher.classList.remove('hidden');
+    teacher.style.display = '"teacher.png"';
+  }
+
+  if (introbox) {
+    introbox.innerHTML = `<p id="dialogue-text"><strong>Peephole View:</strong> Looking through the peephole...</p>`;
+  }
+
+  setTimeout(() => {
+    if (hallBg) hallBg.src = "withouopen door.jpeg";
+    if (kid) kid.style.display = 'block';        
+    if (teacher) teacher.classList.add('hidden');
+
+    if (introbox) {
+      introbox.innerHTML = `
+        <p id="dialogue-text" style="margin-bottom:10px;"><strong>Stranger:</strong> Knock Knock "Hey! I'm you cousin Joe, Remember that you ate my food? open the door! Let's play together!"</p>
+        <div id="choices-container" style="display:flex; justify-content:center; gap:15px;">
+          <button class="game-btn danger" onclick="chooseDoor3(true)">YES (Open Door)</button>
+          <button class="game-btn safe" onclick="chooseDoor3(false)">NO (Keep Locked)</button>
+        </div>
+      `;
+    }
+
+    if (!document.getElementById('extra-btn')) {
+      const navBtn = document.createElement('button');
+      navBtn.id = 'extra-btn';
+      navBtn.className = 'game-btn';
+      navBtn.style.position = 'absolute';
+      navBtn.style.top = '250px';
+      navBtn.style.left = '750px'
+      navBtn.innerText = 'Go Upstairs';
+      navBtn.onclick = openUpstairsHall;
+      document.getElementById('game-screen').appendChild(navBtn);
+    }
+
+
+    if (!document.getElementById('kitchen-arrow')) {
+      const arrow = document.createElement('button');
+      arrow.id = 'kitchen-arrow';
+      arrow.className = 'game-btn';
+      arrow.style.position = 'absolute';
+      arrow.style.top = '310px';
+      arrow.style.left = '350px';
+      arrow.innerText = '<--- Go to kitchen';
+      arrow.onclick = openKitchen3;
+      document.getElementById('game-screen').appendChild(arrow);
+    }
+  }, 3000); 
+}
+
+function chooseDoor3(openDoor) {
+  const hallBg = document.getElementById('main-bg');
+  const kid = document.getElementById('banana-kid');
+  const teacher = document.getElementById('teacher');
+  const introbox = document.getElementById('intro-box');
+
+  const kitchenArrow = document.getElementById('kitchen-arrow');
+  if (kitchenArrow) kitchenArrow.remove();
+
+  if (introbox) introbox.style.display = 'none';
+
+  if (openDoor) {
+    if (hallBg) hallBg.src = "open door.jpeg";
+    if (teacher) teacher.classList.add('hidden');
+    triggerOutcome(true, "YOU WIN LEVEL 3 ! 🎉 Banana Joe is your real cousin!");
+  } else {
+    if (hallBg) hallBg.src = "withouopen door.jpeg";
+    if (teacher) teacher.classList.add('hidden');
+    if (kid) kid.style.display = 'block';
+    triggerOutcome(false, "GAME OVER! You left your cousin Banana Joe outside! 😢");
+  }
+}
+
+ function openUpstairsHall() {
+  showScreen('upstairs-screen');
+}
+
+function backToHallFromUpstairs() {
+  showScreen('game-screen');
+}
+
+function openGumballRoom3() {
+  showScreen('gumball-screen');
+  const clueNote = document.getElementById('frame');
+  if (clueNote) clueNote.style.display = 'none';
+}
+
+function backToUpstairs() {
+  showScreen('upstairs-screen');
+}
+
+function openKitchen3() {
+ showScreen('kitchen-screen');
+ const clueNote = document.getElementById('fridge-clue');
+ if (clueNote) clueNote.style.display = 'none';
+}
+
+function   ToHall() {
+  showScreen('game-screen');
+}
+
+function OpenBathroom() {
+  showScreen('bathroom-screen');
+}
+
+
+
+
   

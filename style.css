@@ -316,7 +316,7 @@ html, body {
   background-color: #1a1a2e;
 }
 
-#level-1-btn:hover {
+#level-2-btn:hover {
   transform: translate(-50%, -50%) scale(1.1);
 }
 
@@ -349,4 +349,36 @@ html, body {
   left: 50%;
   z-index: 100;
 
+}
+
+#level-3 {
+  position: absolute;
+  top: 71%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#level-3 img {
+  height: 100px;
+  width: auto;
+}
+
+#level3-screen {
+  background-color: #1a1a2e;
+}
+
+#level-3-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+#teacher {
+  left: 35%;
+  bottom: 120px;
+  height: 700px;
+  z-index: 3;
+  top: 12%;
 }
