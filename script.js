@@ -582,7 +582,8 @@ function strangerArrives3() {
 
     if (introbox) {
       introbox.innerHTML = `
-        <p id="dialogue-text" style="margin-bottom:10px;"><strong>Stranger:</strong> Knock Knock "Hey! I'm you cousin Joe, Remember that you ate my food? open the door! Let's play together!"</p>
+        <p id="dialogue-text" style="margin-bottom:10px;"><strong>Stranger:</strong> Knock Knock "Open the door!, Joe has failed in his exam, 6 months later also bunk his school for six months!</p>
+        <p id="dialogue-text" style="margin-bottom:10px;"><strong>Joe:</strong> oh No!!I just forget my teacher face"</p>
         <div id="choices-container" style="display:flex; justify-content:center; gap:15px;">
           <button class="game-btn danger" onclick="chooseDoor3(true)">YES (Open Door)</button>
           <button class="game-btn safe" onclick="chooseDoor3(false)">NO (Keep Locked)</button>
@@ -670,9 +671,63 @@ function   ToHall() {
 
 function OpenBathroom() {
   showScreen('bathroom-screen');
+
+  const paper = document.getElementById('paper');
+  if (paper) paper.classList.add('hidden');
+  
+  const plunger = document.getElementById('plunger');
+  if (plunger) plunger.style.display = 'block';
+
+  const video = document.getElementById('plunger-vid');
+  if (video) {
+    video.pause();
+    video.currentTime = 0;
+    video.classList.add('hidden');
+  }
 }
 
+function usePlunger() {
+  const plunger = document.getElementById('plunger');
+  if (plunger) {
+    plunger.style.display = 'none';
+  }
 
+  const video = document.getElementById('plunger-vid');
+  if (video) {
+    video.classList.remove('hidden');
+    video.currentTime = 0;
+    video.play().catch(err => console.log("Video play error:", err));     
+  }
+}
 
+function videoEnded() {
+  const video = document.getElementById('plunger-vid');
+  if (video) {
+    video.classList.add('hidden');
+  }
 
+  const paper = document.getElementById('paper');
+  if (paper) {
+    paper.classList.remove('hidden');
+  }
+}
+
+function ToiletClue() {
+  const popup = document.getElementById('Toilet-clue');
+  if (popup) {
+    popup.classList.remove('hidden');
+  }
+}
+
+function closetoiletClue() {
+  const popup = document.getElementById('Toilet-clue');
+  if (popup) {
+    popup.classList.add('hidden');  
+  }
   
+  // Cleaned up missing/unnecessary variable reference to prevent hidden errors
+  const paper = document.getElementById('paper');
+  if (paper) {
+    paper.classList.remove('zoom');
+  }
+}

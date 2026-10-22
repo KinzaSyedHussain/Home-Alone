@@ -382,3 +382,36 @@ html, body {
   z-index: 3;
   top: 12%;
 }
+
+#plunger {
+  position: absolute;
+  top: 36rem;
+  left: 80rem;
+  width: 90px;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s ease;
+}
+
+#plunger:hover {
+  transform: scale(1.1);
+}
+
+#paper {
+  position: absolute;
+  top: 300px;
+  left: 650px;
+  width: 200px;
+  cursor: pointer;
+  transition: transform 0.4 ease-in-out;
+  z-index: 10;
+  transform-origin: center center;
+}
+
+#paper.zoom {
+  transform: translate(-50%, -50%) scale(5);
+  top: 40%;
+  left: 50%;
+  z-index: 100;
+
+}
