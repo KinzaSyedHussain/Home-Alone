@@ -43,6 +43,11 @@ function startLevel1() {
   currentLevel = 1;
   showScreen('game-screen');
 
+  const clueNote = document.getElementById('fridge-clue');
+  if (clueNote) {
+    clueNote.style.display = 'block';
+  }
+
   const hallbg = document.getElementById('main-bg');
   const dad = document.getElementById('banana-dad');
   const mom = document.getElementById('banana-mom');
@@ -229,12 +234,14 @@ function triggerOutcome(isWin, messageText) {
   }
  }
 
-function goToNextLevel() {
+ function goToNextLevel() {
   const gameOverBox = document.querySelector('.game-over-box');
   if (gameOverBox) gameOverBox.remove();
 
   if (currentLevel === 1) {
     startLevel2();
+  } else if (currentLevel === 2) {
+    startLevel3();
   } else {
     showLevelSelect();
   }
@@ -242,6 +249,11 @@ function goToNextLevel() {
 
 function openKitchen() {
  showScreen('kitchen-screen');
+
+ const clueNote = document.getElementById('fridge-clue');
+ if (clueNote) {
+  clueNote.style.display = 'block';
+ }
 }
 
 function backToHall() {
@@ -424,8 +436,30 @@ function chooseDoor2(openDoor) {
   }
 }
 
- function openUpstairsHall() {
+function goToNextLevel() {
+  const gameOverBox = document.querySelector('.game-over-box');
+  if (gameOverBox) gameOverBox.remove();
+
+  if (currentLevel === 1) {
+    startLevel2();
+  } else if (currentLevel === 2) {
+    startLevel3();
+  } else {
+    showLevelSelect();
+  }
+}
+
+function openUpstairsHall() {
   showScreen('upstairs-screen');
+
+  const bathroomBtn = document.getElementById('bathroom-btn');
+  if (bathroomBtn) {
+    if (currentLevel === 3) {
+      bathroomBtn.style.display = 'block';
+    } else {
+      bathroomBtn.style.display = 'none';
+    }
+  }
 }
 
 function backToHallFromUpstairs() {
@@ -485,16 +519,20 @@ function startLevel3() {
   const introbox = document.getElementById('intro-box');
   const teacher = document.getElementById('teacher');
 
-  const extraBtn = document.getElementById('extra-nav-btn');
+  const extraBtn = document.getElementById('extra-btn');
   if (extraBtn) extraBtn.remove();
-  const extraBtn2 = document.getElementById('extra-nav-btn-2');
-  if (extraBtn2) extraBtn2.remove();
-
-  const gameOverBox = document.querySelector('.game-over-box');
-  if (gameOverBox) gameOverBox.remove();
+  
+  const extraBtnNav = document.getElementById('extra-nav-btn');
+  if (extraBtnNav) extraBtnNav.remove();
+  
+  const extraBtnNav2 = document.getElementById('extra-nav-btn-2');
+  if (extraBtnNav2) extraBtnNav2.remove();
 
   const kitchenArrow = document.getElementById('kitchen-arrow');
   if (kitchenArrow) kitchenArrow.remove();
+
+  const gameOverBox = document.querySelector('.game-over-box');
+  if (gameOverBox) gameOverBox.remove();
   
   if (hallbg) hallbg.src = "withouopen door.jpeg";
   if (dad) dad.style.display = 'block';
@@ -537,10 +575,10 @@ function parentsLeave3() {
 
     if (btn) btn.style.display = 'none';
     if (kid) kid.classList.add('wiggle');
-    playSound('tacos');
+    playSound('music');
 
     setTimeout(() => {
-      stopSound('tacos');
+      stopSound('music');
       if (kid) kid.classList.remove('wiggle');
 
       playSound('knock');
@@ -582,8 +620,8 @@ function strangerArrives3() {
 
     if (introbox) {
       introbox.innerHTML = `
-        <p id="dialogue-text" style="margin-bottom:10px;"><strong>Stranger:</strong> Knock Knock "Open the door!, Joe has failed in his exam, 6 months later also bunk his school for six months!</p>
-        <p id="dialogue-text" style="margin-bottom:10px;"><strong>Joe:</strong> oh No!!I just forget my teacher face"</p>
+        <p id="dialogue-text" style="margin-bottom:10px;"><strong>Stranger:</strong> Knock Knock "Open the door! Joe failed his exam and has been skipping school for six months!</p>
+        <p id="dialogue-text" style="margin-bottom:10px;"><strong>Joe:</strong> Oh no!! I forgot what my teacher looks like!"</p>
         <div id="choices-container" style="display:flex; justify-content:center; gap:15px;">
           <button class="game-btn danger" onclick="chooseDoor3(true)">YES (Open Door)</button>
           <button class="game-btn safe" onclick="chooseDoor3(false)">NO (Keep Locked)</button>
@@ -632,27 +670,45 @@ function chooseDoor3(openDoor) {
   if (openDoor) {
     if (hallBg) hallBg.src = "open door.jpeg";
     if (teacher) teacher.classList.add('hidden');
-    triggerOutcome(true, "YOU WIN LEVEL 3 ! 🎉 Banana Joe is your real cousin!");
+    triggerOutcome(false, "GAME OVER! Why did you open the door? Joe failed his exam!");
   } else {
     if (hallBg) hallBg.src = "withouopen door.jpeg";
     if (teacher) teacher.classList.add('hidden');
     if (kid) kid.style.display = 'block';
-    triggerOutcome(false, "GAME OVER! You left your cousin Banana Joe outside! 😢");
+    triggerOutcome(true, "YOU WIN LEVEL 3! He just wanted to remember his teacher's face 😝");
   }
 }
 
  function openUpstairsHall() {
   showScreen('upstairs-screen');
+
+  const bathroomBtn = document.getElementById('bathroom-btn');
+  if (bathroomBtn) {
+    if (currentLevel === 3) {
+      bathroomBtn.style.display = 'block';
+    } else {
+      bathroomBtn.style.display = 'none';
+    }
+  }
 }
 
 function backToHallFromUpstairs() {
   showScreen('game-screen');
 }
 
-function openGumballRoom3() {
+function openGumballRoom() {
   showScreen('gumball-screen');
-  const clueNote = document.getElementById('frame');
-  if (clueNote) clueNote.style.display = 'none';
+
+  const frame = document.getElementById('frame');
+  const frameClue = document.getElementById('frame-clue');
+  if (frameClue) frameClue.classList.add('hidden');
+  if (frame) frame.classList.remove('zoom');
+
+  if (currentLevel === 3) {
+    if (frame) frame.style.display = 'none';
+  } else {
+    if (frame) frame.style.display = 'block';
+  }
 }
 
 function backToUpstairs() {
@@ -713,10 +769,17 @@ function videoEnded() {
 }
 
 function ToiletClue() {
+  const paper = document.getElementById('paper');
   const popup = document.getElementById('Toilet-clue');
-  if (popup) {
-    popup.classList.remove('hidden');
+  if (paper) {
+    paper.classList.add('zoom');
   }
+
+  setTimeout(() => {
+    if (popup) {
+      popup.classList.remove('hidden');
+    }
+  }, 400);
 }
 
 function closetoiletClue() {
@@ -725,7 +788,6 @@ function closetoiletClue() {
     popup.classList.add('hidden');  
   }
   
-  // Cleaned up missing/unnecessary variable reference to prevent hidden errors
   const paper = document.getElementById('paper');
   if (paper) {
     paper.classList.remove('zoom');
