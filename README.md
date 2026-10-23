@@ -9,5 +9,12 @@ HTML
 JavaScript
 CSS
 
+## Credits
+
+* **Music & Sound Effects:**
+  * *"Raining Tacos"* – Parry Gripp
+  * *"Chicken Banana"* – Minions / Illumination
+  * Background Music & SFX – [Pixabay](https://pixabay.com/) / [Freesound](https://freesound.org/)
+
 # Want to play?
 Click here: https://kinzasyedhussain.github.io/Home-Alone/
